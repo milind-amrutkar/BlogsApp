@@ -53,6 +53,10 @@ android {
 
 dependencies {
 
+    implementation(project(mapOf("path" to ":common")))
+    implementation(project(mapOf("path" to ":data")))
+    implementation(project(mapOf("path" to ":domain")))
+
     val pagingVersion = "3.2.0"
     val navVersion = "2.7.1"
     val retrofitVersion = "2.9.0"
