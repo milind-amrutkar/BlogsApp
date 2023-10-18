@@ -1,6 +1,7 @@
 package com.example.blogsapp.screens.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -48,14 +49,22 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
 
     LazyColumn {
         items(list.itemCount) {
-            PostItem(it = list[it]!!)
+            PostItem(it = list[it]!!) { blogid ->
+                navController.navigate("details/${blogid}")
+            }
         }
     }
 }
 
 @Composable
-fun PostItem(it: Blog) {
-    Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
+fun PostItem(it: Blog, l: (String) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                l.invoke(it.id)
+            }, verticalArrangement = Arrangement.Center
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
