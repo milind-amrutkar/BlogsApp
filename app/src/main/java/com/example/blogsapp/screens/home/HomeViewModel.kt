@@ -17,6 +17,11 @@ class HomeViewModel @Inject constructor(private val getBlogsUseCase: GetBlogsUse
 
     private val _blogs = mutableStateOf<HomeState>(HomeState())
     val blogs: State<HomeState> = _blogs
+
+    init {
+        getBlogs()
+    }
+
     fun getBlogs() {
         getBlogsUseCase().onEach {
             when (it) {
@@ -25,11 +30,11 @@ class HomeViewModel @Inject constructor(private val getBlogsUseCase: GetBlogsUse
                 }
 
                 is Resource.Error -> {
-                    _blogs.value = HomeState(data = it.data)
+                    _blogs.value = HomeState(error = it.message.toString())
                 }
 
                 is Resource.Success -> {
-                    _blogs.value = HomeState(error = it.message.toString())
+                    _blogs.value = HomeState(data = it.data)
                 }
             }
         }.launchIn(viewModelScope)
