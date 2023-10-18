@@ -36,6 +36,7 @@ android {
 
 dependencies {
 
+    implementation(project(mapOf("path" to ":common")))
     val pagingVersion = "3.2.0"
     val navVersion = "2.7.1"
     val retrofitVersion = "2.9.0"
